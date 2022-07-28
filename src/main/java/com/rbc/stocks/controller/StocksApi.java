@@ -83,7 +83,6 @@ public class StocksApi implements WebMvcConfigurer {
         try {
             List<StockRequestDTO> allRecords = new ArrayList<>();
             String line;
-//            StockRequestDTO currentStockData = new ;
             InputStream is = dataToInsert.getInputStream();
             br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             br.readLine();
@@ -108,9 +107,8 @@ public class StocksApi implements WebMvcConfigurer {
                     currentStockData.setPercentChangeNextWeeksPrice(StockRequestDTO.getAmount(lineScanner.next()));
                     currentStockData.setDaysToNextDividend(StockRequestDTO.checkIntegerEmpty((lineScanner.next())));
                     currentStockData.setPercentReturnNextDividend(StockRequestDTO.checkDoubleEmpty((lineScanner.next())));
-                    allRecords.add(currentStockData);
                 }
-
+                allRecords.add(currentStockData);
                 lineScanner.close();
             }
               stocksRepository.saveAll(allRecords);
